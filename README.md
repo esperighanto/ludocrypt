@@ -1,7 +1,7 @@
 # LudoCrypt
 LudoCrypt is a user-scripted cryptography program. It is not intended for serious cryptographic implementations, and as the etymology of the name suggests, is intended to be more of a fun learning experience than anything else. It is aimed at people who want to learn about cryptography and who use cryptography for non-serious tasks, as well as for people who may be interested in expanding the user-scriptability in other directions. It is entirely open source, and always will remain free, and any user is free to branch and alter it as they please. 
 
-LudoCrypt relies on the concept of stacking encryption algorithms for security, whereas a single caesar cipher is child's play to solve, a series of ciphers all stacked upon one another is slightly more fortified. 
+LudoCrypt relies on the concept of stacking encryption algorithms for security, whereas a single caesar cipher is child's play to solve, a series of ciphers all stacked upon one another is slightly more fortified. It is **VERY** important to note that LudoCrypt is destructive to both punctuation and whitespace.
 
 LudoCrypt's name comes from the Latin (as well as Esperanto) word for play, *Ludo*, and from the greek word *Kruptos*, but loaned through English from the word *Encrypt*. 
 
