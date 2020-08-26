@@ -1,7 +1,7 @@
 import sys, os
 import tkinter as tk
 from tkinter import filedialog as fd
-from pycipher import Caesar, Vigenere, ADFGX, ADFGVX, Affine, Autokey, Atbash, Beaufort, Bifid, ColTrans, Foursquare, Gronsfeld, Playfair, Railfence, Rot13, SimpleSubstitution
+from pycipher import Caesar, Vigenere, ADFGX, ADFGVX, Affine, Autokey, Atbash, Beaufort, Bifid, ColTrans, Foursquare, Gronsfeld, Playfair, Porta, Railfence, Rot13, SimpleSubstitution
 
 debug = False
 ciphertext = ''
@@ -16,7 +16,7 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
             splitLine = keycodeLines[len(keycodeLines)-1-i].split() #This ensures that if the encryption direction is set to decrypt, that this for loop reads the keycode.txt from end to beginning.
 
         # print("Line " + str(i) + " is " + keycodeLines[i] + " and the split line is: " + str(splitLine)) # This was an old debugging line that may be useful in the future.
-        if(splitLine[0] == "caesar"): # If the command is calling for a caesar cipher.
+        if(splitLine[0] == "caesar"):
             if(int(splitLine[1]) > 25 or int(splitLine[1]) < 1):
                 print("Keycode line: " + str(i + 1) + ": Caesar shift detected on keycode line " + str(i) + " attempting to shift by value " + splitLine[1] + ".")
                 sys.exit()
@@ -30,8 +30,8 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                     plaintextContents = Caesar(int(splitLine[1])).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Caesar shifted " + originalPlaintext + " by " + splitLine[1] + " with a result of " + plaintextContents + ".")
-        elif(splitLine[0] == "vigenere"): #If the command is calling for a vigenère cipher.
-            if(type(splitLine[1] != str)): # Check that the encryption key is a string. #TODO: Parentheses are kind of ruined here.
+        elif(splitLine[0] == "vigenere"):
+            if(type(splitLine[1] != str)):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Vigenère shift detected with an argument of " + splitLine[1] + ".")
@@ -43,7 +43,20 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                     print("Keycode line: " + str(i + 1) + ": Vigenère shifted " + originalPlaintext + " by " + splitLine[1] + " with a result of " + plaintextContents + ".")
             else:
                 print("Keycode line: " + str(i + 1) + ": Vigenère shift detected on keycode line " + str(i) + " attempting to use key that is not a string.")
-        elif(splitLine[0] == "adfgx"): #If the command is calling for an ADFGX cipher. The first argument is the keysquare, and the sceond argument is the keyword.
+        elif(splitLine[0] == "porta"):
+            if(type(splitLine[1] != str)):
+                originalPlaintext = plaintextContents
+                if(debug):
+                    print("Keycode line: " + str(i + 1) + ": Porta cipher detected with an argument of " + splitLine[1] + ".")
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = Porta(splitLine[1]).encipher(plaintextContents)
+                else:
+                    plaintextContents = Porta(splitLine[1]).decipher(plaintextContents)
+                if(debug):
+                    print("Keycode line: " + str(i + 1) + ": Vigenère shifted " + originalPlaintext + " by " + splitLine[1] + " with a result of " + plaintextContents + ".")
+            else:
+                print("Keycode line: " + str(i + 1) + ": Vigenère shift detected on keycode line " + str(i) + " attempting to use key that is not a string.")
+        elif(splitLine[0] == "adfgx"):
             if(len(splitLine[1]) != 25): # This makes sure that the keysquare's length is exactly 25.
                 print("Keycode line: " + str(i + 1) + ": ADFGX cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
                 sys.exit()
@@ -54,7 +67,7 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 plaintextContents = ADFGX(splitLine[1], splitLine[2]).encipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": ADFGX ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + " with a result of " + plaintextContents + ".")
-        elif(splitLine[0] == "adfgvx"): #If the command is calling for an ADFGVX cipher. The first argument is the keysquare, and the sceond argument is the keyword.
+        elif(splitLine[0] == "adfgvx"): #The first argument is the keysquare, and the second argument is the keyword.
             if(len(splitLine[1]) != 36): # This makes sure that the keysquare's length is exactly 36.
                 print("Keycode line: " + str(i) + ": ADFGVX cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long, but is instead " + str(len(splitLine[1])) + " characters long.")
                 sys.exit()
@@ -93,8 +106,8 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 plaintextContents = Affine(25, 25).encipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Atbash ciphered " + originalPlaintext + " for a result of " + plaintextContents + ".")
-        elif(splitLine[0] == "beaufort"): #If the command is calling for a vigenère cipher.
-            if(type(splitLine[1] == str)): # Check that the encryption key is a string.
+        elif(splitLine[0] == "beaufort"):
+            if(type(splitLine[1] == str)):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Beaufort shift detected with an argument of " + splitLine[1] + ".")
@@ -103,7 +116,7 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                     print("Keycode line: " + str(i + 1) + ": Beaufort shifted " + originalPlaintext + " by " + splitLine[1] + " with a result of " + plaintextContents + ".")
             else:
                 print("Keycode line: " + str(i + 1) + ": Beaufort shift detected on keycode line " + str(i) + " attempting to use key that is not a string.")
-        elif(splitLine[0] == "bifid"): #If the command is calling for an ADFGX cipher. The first argument is the keysquare, and the sceond argument is the keyword.
+        elif(splitLine[0] == "bifid"):
             if(len(splitLine[1]) != 25): # This makes sure that the keysquare's length is exactly 25.
                 print("Keycode line: " + str(i + 1) + ": Bifid cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
                 sys.exit()
@@ -138,7 +151,7 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
         #         plaintextContents = Foursquare(key1 = splitLine[1], key2 = splitLine[2]).encipher(plaintextContents)
         #         if(debug):
         #             print("Foursquare ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + " with a result of " + plaintextContents + ".")
-        elif(splitLine[0] == "playfair"): #If the command is calling for an ADFGX cipher. The first argument is the keysquare, and the sceond argument is the keyword.
+        elif(splitLine[0] == "playfair"):
             if(len(splitLine[1]) != 25): # This makes sure that the keysquare's length is exactly 25.
                 print("Keycode line: " + str(i + 1) + ": Playfair cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
                 sys.exit()
