@@ -39,10 +39,9 @@ LudoCrypt is a project that has the potential to keep growing and expanding with
   * Having a no-warning flag that defaults to false would be nice, if a .cfg system was to be implemented.
  * Implementing some more ciphers from PyCipher:
   * Polybius Square.
-  * Porta.
   * M-209.
   * Enigma.
-  * Modifying the Caesar cipher to be able ot move negatively as well as positively, for example rot-3 turning "def" into "abc".
+  * Modifying the Caesar cipher to be able to move negatively as well as positively, for example rot-3 turning "def" into "abc".
  * Warnings & errors system, that details issues in codetext (syntax errors for example).
 
 If you find yourself contributing to LudoCrypt or developing on a branch of it, these are the resources that helped me:
