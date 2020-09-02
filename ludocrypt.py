@@ -64,7 +64,10 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": ADFGX cipher detected with a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + ".")
-                plaintextContents = ADFGX(splitLine[1], splitLine[2]).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = ADFGX(splitLine[1], splitLine[2]).encipher(plaintextContents)
+                else:
+                    plaintextContents = ADFGX(splitLine[1], splitLine[2]).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": ADFGX ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + " with a result of " + plaintextContents + ".")
         elif(splitLine[0] == "adfgvx"): #The first argument is the keysquare, and the second argument is the keyword.
@@ -75,7 +78,10 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": ADFGVX cipher detected with a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + ".")
-                plaintextContents = ADFGVX(splitLine[1], splitLine[2]).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = ADFGVX(splitLine[1], splitLine[2]).encipher(plaintextContents)
+                else:
+                    plaintextContents = ADFGVX(splitLine[1], splitLine[2]).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": ADFGVX ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + " with a result of " + plaintextContents + ".")
         elif(splitLine[0] == "affine"):
@@ -89,21 +95,30 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Affine cipher detected with an a value of " + splitLine[1] + " and a b value of " + splitLine[2] + ".")
-                plaintextContents = Affine(int(splitLine[1]), int(splitLine[2])).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = Affine(int(splitLine[1]), int(splitLine[2])).encipher(plaintextContents)
+                else:
+                    plaintextContents = Affine(int(splitLine[1]), int(splitLine[2])).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Affine ciphered " + originalPlaintext + " by value a " + splitLine[1] + " and value b " + splitLine[2] + " with a result of " + plaintextContents + ".")
         elif(splitLine[0] == "autokey"): #TODO: The autokey cipher actually doesn't have any requirements for the key, but will be configured to set off a ton of warnings assuming the config flags allow for it.
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Autokey cipher detected with an key of " + splitLine[1] + ".")
-                plaintextContents = Autokey(splitLine[1]).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = Autokey(splitLine[1]).encipher(plaintextContents)
+                else:
+                    plaintextContents = Autokey(splitLine[1]).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Autokey ciphered " + originalPlaintext + " by key of " + splitLine[1] + " for a result of " + plaintextContents + ".")
         elif(splitLine[0] == "atbash"):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Autokey cipher detected.")
-                plaintextContents = Affine(25, 25).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = Affine(25, 25).encipher(plaintextContents)
+                else:
+                    plaintextContents = Affine(25, 25).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Atbash ciphered " + originalPlaintext + " for a result of " + plaintextContents + ".")
         elif(splitLine[0] == "beaufort"):
@@ -111,7 +126,10 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Beaufort shift detected with an argument of " + splitLine[1] + ".")
-                plaintextContents = Beaufort(splitLine[1]).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = Beaufort(splitLine[1]).encipher(plaintextContents)
+                else:
+                    plaintextContents = Beaufort(splitLine[1]).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Beaufort shifted " + originalPlaintext + " by " + splitLine[1] + " with a result of " + plaintextContents + ".")
             else:
@@ -124,7 +142,10 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Bifid cipher detected with a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + ".")
-                plaintextContents = Bifid(splitLine[1], int(splitLine[2])).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = Bifid(splitLine[1], int(splitLine[2])).encipher(plaintextContents)
+                else:
+                    plaintextContents = Bifid(splitLine[1], int(splitLine[2])).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Bifid ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + " with a result of " + plaintextContents + ".")
         elif(splitLine[0] == "coltrans"):
@@ -132,34 +153,41 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 originalPlaintext = plaintextContents
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Columnar transposition shift detected with an argument of " + splitLine[1] + ".")
-                plaintextContents = ColTrans(splitLine[1]).encipher(plaintextContents)
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = ColTrans(splitLine[1]).encipher(plaintextContents)
+                else:
+                    plaintextContents = ColTrans(splitLine[1]).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Columnar transposition shifted " + originalPlaintext + " by " + splitLine[1] + " with a result of " + plaintextContents + ".")
+            else:
                 print("Keycode line: " + str(i + 1) + ": Columnar transposition shift detected on keycode line " + str(i) + " attempting to use key that is not a string.")
-        #Foursquare's giving me a strange error on the pycipher end of things. This will be commented out for now, as it's not integral to the final product getting shipped.
-        # elif(splitLine[0] == "foursquare"): #If the command is calling for an ADFGX cipher. The first argument is the keysquare, and the sceond argument is the keyword.
-        #     if(len(splitLine[1]) != 25): # This makes sure that the keysquare's length is exactly 25.
-        #         print("Foursquare cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
-        #         sys.exit()
-        #     elif(len(splitLine[2]) != 25): # This makes sure that the keysquare's length is exactly 25.
-        #         print("Foursquare cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
-        #         sys.exit()
-        #     else:
-        #         originalPlaintext = plaintextContents
-        #         if(debug):
-        #             print("Foursquare cipher detected with a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + ".")
-        #         plaintextContents = Foursquare(key1 = splitLine[1], key2 = splitLine[2]).encipher(plaintextContents)
-        #         if(debug):
-        #             print("Foursquare ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + " with a result of " + plaintextContents + ".")
+        elif(splitLine[0] == "foursquare"):
+            if(len(splitLine[1]) != 25): # This makes sure that the keysquare's length is exactly 25.
+                print("Foursquare cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
+                sys.exit()
+            elif(len(splitLine[2]) != 25):
+                print("Foursquare cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
+                sys.exit()
+            else:
+                originalPlaintext = plaintextContents
+                if(debug):
+                    print("Foursquare cipher detected with a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + ".")
+                if(encryptionDirection == "encrypt"):
+                    plaintextContents = Foursquare(key1 = splitLine[1], key2 = splitLine[2]).encipher(plaintextContents)
+                else:
+                    plaintextContents = Foursquare(key1 = splitLine[1], key2 = splitLine[2]).decipher(plaintextContents)
+                if(debug):
+                    print("Foursquare ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " and a keyword of " + splitLine[2] + " with a result of " + plaintextContents + ".")
         elif(splitLine[0] == "playfair"):
             if(len(splitLine[1]) != 25): # This makes sure that the keysquare's length is exactly 25.
                 print("Keycode line: " + str(i + 1) + ": Playfair cipher detected on keycode line " + str(i) + " attempting to use keysquare that is not 25 characters long.")
                 sys.exit()
             else:
                 originalPlaintext = plaintextContents
-                if(debug):
-                    print("Keycode line: " + str(i + 1) + ": Playfair cipher detected with a keysquare of " + splitLine[1] + ".")
+                if(encryptionDirection == "encrypt"):
                     plaintextContents = Playfair(splitLine[1]).encipher(plaintextContents)
+                else:
+                    plaintextContents = Playfair(splitLine[1]).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Playfair ciphered " + originalPlaintext + " by a keysquare of " + splitLine[1] + " with a result of " + plaintextContents + ".")
         elif(splitLine[0] == "railfence"): #TODO: Fix this so that it throws an error if the key is a bad length relative to the plaintext.
@@ -171,9 +199,10 @@ def encrypt(keycodeLines, encryptionDirection, plaintextContents):
                 sys.exit()
             else:
                 originalPlaintext = plaintextContents
-                if(debug):
-                    print("Keycode line: " + str(i + 1) + ": Railfence cipher detected with a key of " + splitLine[1] + ".")
+                if(encryptionDirection == "encrypt"):
                     plaintextContents = Railfence(int(splitLine[1])).encipher(plaintextContents)
+                else:
+                    plaintextContents = Railfence(int(splitLine[1])).decipher(plaintextContents)
                 if(debug):
                     print("Keycode line: " + str(i + 1) + ": Railfence ciphered " + originalPlaintext + " by a key of " + splitLine[1] + " with a result of " + plaintextContents + ".")
         elif(splitLine[0] == "rot13"):
@@ -239,6 +268,7 @@ encryptButton = tk.Button(tkRoot, text="Encrypt", command=encryptTextCallback)
 encryptButton.place(x=400, y=100)
 
 def decryptTextCallback():
+    ciphertextBox.delete(0, tk.END) # This clears the box, so that the decrypted text does not stack upon what was last there.
     decryptedTextToPlace = encrypt(codetextBox.get("1.0","end-1c").split("\n"), "decrypt", plaintextBox.get("1.0","end-1c"))
     ciphertextBox.insert(tk.END, decryptedTextToPlace)
 decryptButton = tk.Button(tkRoot, text="Decrypt", command=decryptTextCallback)
